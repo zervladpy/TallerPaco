@@ -3,13 +3,10 @@ package com.zervladpy.tallerpaco.Core.Entities.Car;
 import com.zervladpy.tallerpaco.Core.Entities.Customer.Customer;
 import com.zervladpy.tallerpaco.Core.Entities.ITEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor @AllArgsConstructor
-@Getter @Setter
+@Getter @Setter @ToString
 @Entity(name = "car")
 public class Car implements ITEntity {
 

@@ -2,17 +2,14 @@ package com.zervladpy.tallerpaco.Core.Entities.Car;
 
 import com.zervladpy.tallerpaco.Core.Entities.ITEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Blob;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @AllArgsConstructor @NoArgsConstructor
-@Getter @Setter
+@Getter @Setter @ToString
 @Entity(name = "car_brand")
 public class CarBrand implements ITEntity {
     @Id
@@ -26,10 +23,6 @@ public class CarBrand implements ITEntity {
     private int foundationYear;
     @Lob
     @Column(name = "logo")
-    private Blob logo;
+    private byte[] logo;
 
-    @Override
-    public String toString() {
-        return brand;
-    }
 }

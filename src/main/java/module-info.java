@@ -1,4 +1,4 @@
-module com.zervlad.tallerpaco {
+module com.zervladpy.tallerpaco {
     requires javafx.controls;
     requires javafx.fxml;
     requires org.hibernate.orm.core;
@@ -21,4 +21,10 @@ module com.zervlad.tallerpaco {
     opens com.zervladpy.tallerpaco.Controllers.Car to javafx.fxml;
     exports com.zervladpy.tallerpaco.Controllers.CarBrand;
     opens com.zervladpy.tallerpaco.Controllers.CarBrand to javafx.fxml;
+    exports com.zervladpy.tallerpaco.Controllers.Customer;
+    opens com.zervladpy.tallerpaco.Controllers.Customer to javafx.fxml;
+    exports com.zervladpy.tallerpaco.Controllers.Receipt;
+    opens com.zervladpy.tallerpaco.Controllers.Receipt to javafx.fxml;
+    exports com.zervladpy.tallerpaco.Controllers.Parts;
+    opens com.zervladpy.tallerpaco.Controllers.Parts to javafx.fxml;
 }

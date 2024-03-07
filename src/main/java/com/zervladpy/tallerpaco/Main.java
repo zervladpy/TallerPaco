@@ -1,58 +1,28 @@
 package com.zervladpy.tallerpaco;
 
-import com.zervladpy.tallerpaco.Core.DAO.CarBrandDAO;
-import com.zervladpy.tallerpaco.Core.DAO.CarDAO;
-import com.zervladpy.tallerpaco.Core.DAO.CustomerDAO;
-import com.zervladpy.tallerpaco.Core.DAO.IDAO;
+import com.zervladpy.tallerpaco.Core.DAO.*;
 import com.zervladpy.tallerpaco.Core.Entities.Car.Car;
 import com.zervladpy.tallerpaco.Core.Entities.Car.CarBrand;
 import com.zervladpy.tallerpaco.Core.Entities.Car.CarDetails;
 import com.zervladpy.tallerpaco.Core.Entities.Customer.Customer;
 import com.zervladpy.tallerpaco.Core.Session.SessionManager;
+import com.zervladpy.tallerpaco.Core.Utils.Managers.DependencyManager;
+import jakarta.persistence.EntityManagerFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        var emf = SessionManager.getInstance();
-
-        IDAO<CarBrand> carBrandDAO = new CarBrandDAO(emf);
-
-        // Generate 5 car brands
-        CarBrand carBrand1 = new CarBrand(0, "Toyota", "Japan", 2000, null);
-        CarBrand carBrand2 = new CarBrand(0, "Ford", "USA", 1900, null);
-        CarBrand carBrand3 = new CarBrand(0, "Chevrolet", "USA", 1900, null);
-        CarBrand carBrand4 = new CarBrand(0, "Nissan", "Japan", 1900, null);
-        CarBrand carBrand5 = new CarBrand(0, "Mazda", "Japan", 1900, null);
-
-        carBrandDAO.saveMany(List.of(carBrand1, carBrand2, carBrand3, carBrand4, carBrand5));
-
-        // Get all car brands
-        List<CarBrand> carBrands = carBrandDAO.getAll();
-        System.out.println(carBrands);
-
-        // Create 5 cars
-        Car car1 = new Car(0, new CarDetails("Red", "1234ABC", 10254), null, carBrand1);
-        Car car2 = new Car(0, new CarDetails("Blue", "5678DEF", 10254), null, carBrand2);
-        Car car3 = new Car(0, new CarDetails("Green", "91011GHI", 10254), null, carBrand3);
-        Car car4 = new Car(0, new CarDetails("Yellow", "121314JKL", 10254), null, carBrand4);
-        Car car5 = new Car(0, new CarDetails("Black", "151617MNO", 10254), null, carBrand5);
-
-        // Save the cars
-        IDAO<Car> carDAO = new CarDAO(emf);
-        carDAO.saveMany(List.of(car1, car2, car3, car4, car5));
-
-        IDAO<Customer> customerDAO = new CustomerDAO(emf);
-        Customer customer1 = new Customer(0, "Paco", "Ramirez", "pr@gmail.com", "123456789", List.of(car1), null);
-
-        customerDAO.save(customer1);
+        setupDependencyManager();
+        createDummyData();
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 700, 500);
@@ -65,4 +35,73 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch();
     }
+
+    private void setupDependencyManager() {
+        var dependencies = DependencyManager.getInstance();
+
+        // EntityManager
+        EntityManagerFactory emf = SessionManager.getInstance();
+        dependencies.set(EntityManagerFactory.class, emf);
+
+        // --- CarBrandDAO --- //
+        CarBrandDAO carBrandDAO = new CarBrandDAO(emf);
+        dependencies.set(CarBrandDAO.class, carBrandDAO);
+
+        // --- CarDAO --- //
+        CarDAO carDAO = new CarDAO(emf);
+        dependencies.set(CarDAO.class, carDAO);
+
+        // --- CustomerDAO --- //
+        CustomerDAO customerDAO = new CustomerDAO(emf);
+        dependencies.set(CustomerDAO.class, customerDAO);
+
+        // --- PartDAO --- //
+        PartDAO partDAO = new PartDAO(emf);
+        dependencies.set(PartDAO.class, partDAO);
+
+        // --- ReceiptDAO --- //
+        ReceiptDAO receiptDAO = new ReceiptDAO(emf);
+        dependencies.set(ReceiptDAO.class, receiptDAO);
+    }
+
+    private void createDummyData() {
+
+        DependencyManager dependencies = DependencyManager.getInstance();
+
+        CarBrand toyota = new CarBrand(0, "Toyota", "Japan", 1937, null);
+        CarBrand ford = new CarBrand(0, "Ford", "USA", 1903, null);
+        CarBrand chevrolet = new CarBrand(0, "Chevrolet", "USA", 1911, null);
+        CarBrand volkswagen = new CarBrand(0, "Volkswagen", "Germany", 1937, null);
+        CarBrand nissan = new CarBrand(0, "Nissan", "Japan", 1933, null);
+        CarBrand honda = new CarBrand(0, "Honda", "Japan", 1948, null);
+
+        List<CarBrand> cars = new ArrayList<>(List.of(toyota, ford, chevrolet, volkswagen, nissan, honda));
+
+        Car car1 = new Car(0, new CarDetails("Red", "1111ABC", 1059684), null, toyota);
+        Car car2 = new Car(0, new CarDetails("Blue", "2222DEF", 1059684), null, ford);
+        Car car3 = new Car(0, new CarDetails("Green", "3333GHI", 1059684), null, chevrolet);
+        Car car4 = new Car(0, new CarDetails("Yellow", "4444JKL", 1059684), null, volkswagen);
+        Car car5 = new Car(0, new CarDetails("Black", "5555MNO", 1059684), null, nissan);
+        Car car6 = new Car(0, new CarDetails("White", "6666PQR", 1059684), null, honda);
+
+        List<Car> carsList = new ArrayList<>(List.of(car1, car2, car3, car4, car5, car6));
+
+        Customer customer1 = new Customer(0, "Ramon", "Gimenez", "12345678A", "Calle Falsa 123", List.of(car1), null);
+        Customer customer2 = new Customer(0, "Paco", "Gimenez", "12345678B", "Calle Falsa 124", List.of(car2), null);
+        Customer customer3 = new Customer(0, "Pepe", "Gimenez", "12345678C", "Calle Falsa 125", List.of(car3), null);
+        Customer customer4 = new Customer(0, "Luis", "Gimenez", "12345678D", "Calle Falsa 126", List.of(car4), null);
+        Customer customer5 = new Customer(0, "Juan", "Gimenez", "12345678E", "Calle Falsa 127", List.of(car5), null);
+        Customer customer6 = new Customer(0, "Pedro", "Gimenez", "12345678F", "Calle Falsa 128", List.of(car6), null);
+
+        List<Customer> customers = new ArrayList<>(List.of(customer1, customer2, customer3, customer4, customer5, customer6));
+
+        // --- Save --- //
+
+        dependencies.get(CarBrandDAO.class).saveMany(cars);
+        dependencies.get(CarDAO.class).saveMany(carsList);
+        dependencies.get(CustomerDAO.class).saveMany(customers);
+
+    }
+
+
 }

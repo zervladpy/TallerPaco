@@ -2,13 +2,10 @@ package com.zervladpy.tallerpaco.Core.Entities.Parts;
 
 import com.zervladpy.tallerpaco.Core.Entities.ITEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor @AllArgsConstructor
-@Getter @Setter
+@Getter @Setter @ToString
 @Entity(name = "part")
 public class Part implements ITEntity {
     @Id

@@ -4,15 +4,12 @@ import com.zervladpy.tallerpaco.Core.Entities.Car.Car;
 import com.zervladpy.tallerpaco.Core.Entities.Reciep.Receipt;
 import com.zervladpy.tallerpaco.Core.Entities.ITEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @AllArgsConstructor @NoArgsConstructor
-@Getter @Setter
+@Getter @Setter @ToString
 @Entity(name = "customer")
 public class Customer implements ITEntity {
     @Id

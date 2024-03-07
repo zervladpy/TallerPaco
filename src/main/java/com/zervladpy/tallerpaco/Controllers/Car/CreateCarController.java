@@ -9,6 +9,7 @@ public class CreateCarController {
     @FXML private String mileageTextField;
     @FXML private ColorPicker colorPicker;
     // TODO: Pick Brand from dropdown menu
+    // TODO: Pick Customer from dropdown menu
 
     public void initialize() {}
 }

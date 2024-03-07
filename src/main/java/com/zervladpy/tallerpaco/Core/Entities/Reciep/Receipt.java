@@ -5,16 +5,13 @@ import com.zervladpy.tallerpaco.Core.Entities.Parts.Part;
 import com.zervladpy.tallerpaco.Core.Entities.ITEntity;
 import com.zervladpy.tallerpaco.Core.Utils.Enums.ServiceType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor @NoArgsConstructor
-@Getter @Setter
+@Getter @Setter @ToString
 @Entity(name = "receipt")
 public class Receipt implements ITEntity {
 

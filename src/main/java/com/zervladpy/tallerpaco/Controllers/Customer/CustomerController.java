@@ -1,7 +1,10 @@
 package com.zervladpy.tallerpaco.Controllers.Customer;
 
+import com.zervladpy.tallerpaco.Core.DAO.CustomerDAO;
 import com.zervladpy.tallerpaco.Core.DAO.IDAO;
 import com.zervladpy.tallerpaco.Core.Entities.Customer.Customer;
+import com.zervladpy.tallerpaco.Core.Entities.Customer.CustomerTableViewDTO;
+import com.zervladpy.tallerpaco.Core.Utils.Managers.DependencyManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -14,51 +17,59 @@ import java.util.List;
 
 public class CustomerController {
 
-    private final IDAO<Customer> dao;
-    private  List<Customer> customers, filtered;
-    @FXML private TableView<Customer> tableView;
+    private final CustomerDAO dao;
+    private List<CustomerTableViewDTO> customers;
+    @FXML private TableView<CustomerTableViewDTO> tableView;
     @FXML private Button addButton;
     @FXML private TextField filterTextField;
 
-    public CustomerController(IDAO<Customer> dao) {
-        this.dao = dao;
+    public CustomerController() {
+        dao = DependencyManager.getInstance().get(CustomerDAO.class);
     }
 
     public void initialize() {
-        customers = new ArrayList<>();
-        customers.addAll(dao.getAll());
-        filtered.addAll(customers);
+        customers = dao.getTableViewDTOs();
+        createTable();
+
     }
 
     private void createTable() {
         // --- ID Column --- //
-        TableColumn<Customer, Integer> idColumn = new TableColumn<>("ID");
+        TableColumn<CustomerTableViewDTO, Integer> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         // --- FirstName Column --- //
-        TableColumn<Customer, String> firstNameColumn = new TableColumn<>("Nombre");
+        TableColumn<CustomerTableViewDTO, String> firstNameColumn = new TableColumn<>("Nombre");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         // --- LastName Column --- //
-        TableColumn<Customer, String> lastNameColumn = new TableColumn<>("Apellidos");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("last_name"));
+        TableColumn<CustomerTableViewDTO, String> lastNameColumn = new TableColumn<>("Apellidos");
+        idColumn.setCellValueFactory( new PropertyValueFactory<>("lastName"));
 
         // --- Phone Number --- //
-        TableColumn<Customer, String> phoneColumn = new TableColumn<>("Teléfono");
+        TableColumn<CustomerTableViewDTO, String> phoneColumn = new TableColumn<>("Teléfono");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
-        // --- Phone Number --- //
-        TableColumn<Customer, String> emailColumn = new TableColumn<>("Email");
+        // --- Email --- //
+        TableColumn<CustomerTableViewDTO, String> emailColumn = new TableColumn<>("Email");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-        List<TableColumn<Customer, ?>> columns = tableView.getColumns();
+        // --- Total Cars --- //
+        TableColumn<CustomerTableViewDTO, Integer> totalCarsColumn = new TableColumn<>("Coches");
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("totalCars"));
+
+        // --- Total Cars --- //
+        TableColumn<CustomerTableViewDTO, Integer> totalReceiptsColumn = new TableColumn<>("Facturas");
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("totalReceipts"));
+
+        List<TableColumn<CustomerTableViewDTO, ?>> columns = tableView.getColumns();
         columns.addAll(List.of(idColumn,firstNameColumn, lastNameColumn, phoneColumn, emailColumn));
 
-        tableView.getItems().addAll(filtered);
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_NEXT_COLUMN);
+
+        tableView.getItems().addAll(customers);
     }
 
     private void filter() {
-        String filter = filterTextField.getText();
-        filtered = customers.stream().filter(customer -> customer.getName().contains(filter)).toList();
     }
 }
