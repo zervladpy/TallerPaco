@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="com.zervladpy.tallerpaco.Controllers.MainController">
+   <center>
+       <TabPane
+               prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+           <Tab text="Modelos de Coche">
+               <fx:include source="carbrand/car-brand-view.fxml"/>
+           </Tab>
+           <Tab text="Vehiculos">
+               <fx:include source="car/car-view.fxml" />
+           </Tab>
+           <Tab text="Clientes">
+               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                   <VBox prefHeight="406.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                       <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
+                           <Button fx:id="addClientButton" mnemonicParsing="false" text="Añadir"/>
+                           <TextField fx:id="searchClientTextField" alignment="CENTER_RIGHT" promptText="Buscar"/>
+                       </ToolBar>
+                       <TableView>
+                           <columns>
+                               <TableColumn prefWidth="75.0" text="Id"/>
+                               <TableColumn prefWidth="75.0" text="Nombre"/>
+                               <TableColumn prefWidth="75.0" text="Apellidos"/>
+                               <TableColumn prefWidth="75.0" text="Teléfono"/>
+                               <TableColumn prefWidth="75.0" text="Email"/>
+                           </columns>
+                       </TableView>
+                   </VBox>
+               </AnchorPane>
+           </Tab>
+           <Tab text="Facturas">
+               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                   <VBox prefHeight="406.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                       <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
+                           <Button fx:id="addReceiptButton" mnemonicParsing="false" text="Añadir"/>
+                           <TextField fx:id="receiptSearchField" alignment="CENTER_RIGHT" promptText="Buscar"/>
+                       </ToolBar>
+                       <TableView>
+                           <columns>
+                               <TableColumn prefWidth="75.0" text="Id"/>
+                               <TableColumn prefWidth="75.0" text="Data"/>
+                               <TableColumn prefWidth="75.0" text="Servicio"/>
+                               <TableColumn prefWidth="146.0" text="Mano de Obra"/>
+                               <TableColumn prefWidth="75.0" text="Piezas"/>
+                               <TableColumn prefWidth="75.0" text="Total"/>
+                           </columns>
+                       </TableView>
+                   </VBox>
+               </AnchorPane>
+           </Tab>
+           <Tab text="Piezas">
+               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                   <VBox prefHeight="406.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                       <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
+                           <Button fx:id="addPartButton" mnemonicParsing="false" text="Añadir"/>
+                           <TextField fx:id="searchPartButton" alignment="CENTER_RIGHT" promptText="Buscar"/>
+                       </ToolBar>
+                       <TableView>
+                           <columns>
+                               <TableColumn editable="false" prefWidth="75.0" text="Id"/>
+                               <TableColumn editable="false" prefWidth="75.0" text="Referencia"/>
+                               <TableColumn editable="false" prefWidth="75.0" text="Nombre"/>
+                               <TableColumn editable="false" prefWidth="75.0" text="Stock"/>
+                               <TableColumn editable="false" prefWidth="75.0" text="Costo"/>
+                               <TableColumn editable="false" prefWidth="75.0" text="Precio"/>
+                           </columns>
+                       </TableView>
+                   </VBox>
+               </AnchorPane>
+           </Tab>
+       </TabPane>
+   </center>
+   <top>
+       <MenuBar BorderPane.alignment="CENTER">
+           <Menu mnemonicParsing="false" text="Editar">
+               <MenuItem mnemonicParsing="false" text="Vaciar base de datos"/>
+           </Menu>
+       </MenuBar>
+   </top>
+   <bottom>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <buttons>
+          <Button fx:id="newRegisterButton" mnemonicParsing="false" text="Nuevo Registro" textAlignment="CENTER">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+        </buttons>
+         <BorderPane.margin>
+            <Insets right="10.0" />
+         </BorderPane.margin>
+      </ButtonBar>
+   </bottom>
+</BorderPane>

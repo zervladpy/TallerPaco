@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableView?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.zervladpy.tallerpaco.Controllers.Car.CarController">
+    <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
+        <Button fx:id="addButton" mnemonicParsing="false" text="Añadir"/>
+        <TextField fx:id="searchField" alignment="CENTER_RIGHT" promptText="Buscar"/>
+    </ToolBar>
+    <TableView fx:id="tableView" />
+</VBox>
