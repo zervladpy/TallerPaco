@@ -47,6 +47,7 @@ public class CreateCarBrandController {
 
         yearTextField.addEventFilter(KeyEvent.KEY_TYPED, this::filterNumericInput);
 
+
         // --- Brand Name Change Listener --- //
         brandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             data.setBrand(newValue);

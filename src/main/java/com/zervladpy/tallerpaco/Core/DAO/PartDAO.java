@@ -7,4 +7,5 @@ public class PartDAO extends DAO<Part> {
     public PartDAO(EntityManagerFactory emf) {
         super(emf, Part.class);
     }
+
 }

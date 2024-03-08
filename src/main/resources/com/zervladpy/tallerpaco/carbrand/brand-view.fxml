@@ -12,7 +12,7 @@
       fx:controller="com.zervladpy.tallerpaco.Controllers.CarBrand.CarBrandController"
 >
         <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
-            <Button fx:id="addButton" mnemonicParsing="false" text="Añadir" onMouseClicked="#create" />
+            <Button fx:id="addButton" mnemonicParsing="false" text="Añadir" onMouseClicked="#launchCreateBrandDialog" />
             <TextField fx:id="searchField" alignment="CENTER_RIGHT" promptText="Buscar" onAction="#filter"/>
         </ToolBar>
         <ListView fx:id="listView" />

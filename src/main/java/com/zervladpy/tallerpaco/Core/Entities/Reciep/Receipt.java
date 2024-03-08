@@ -26,12 +26,10 @@ public class Receipt implements ITEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "service_type")
     private ServiceType serviceType;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "receipt_id", referencedColumnName = "id")
     private List<Part> parts;
     @Column(name = "labor_price")
     private double laborPrice;
-    @Column(name = "total")
-    private double total;
 
 }

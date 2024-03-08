@@ -16,7 +16,6 @@ module com.zervladpy.tallerpaco {
 
     exports com.zervladpy.tallerpaco;
     exports com.zervladpy.tallerpaco.Controllers;
-    opens com.zervladpy.tallerpaco.Controllers to javafx.fxml;
     exports com.zervladpy.tallerpaco.Controllers.Car;
     opens com.zervladpy.tallerpaco.Controllers.Car to javafx.fxml;
     exports com.zervladpy.tallerpaco.Controllers.CarBrand;

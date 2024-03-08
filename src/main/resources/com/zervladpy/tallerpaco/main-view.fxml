@@ -16,7 +16,7 @@ fx:controller="com.zervladpy.tallerpaco.Controllers.MainController">
        <TabPane
                prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
            <Tab text="Modelos de Coche">
-               <fx:include source="carbrand/car-brand-view.fxml"/>
+               <fx:include source="carbrand/brand-view.fxml"/>
            </Tab>
            <Tab text="Vehiculos">
                <fx:include source="car/car-view.fxml" />
@@ -28,7 +28,7 @@ fx:controller="com.zervladpy.tallerpaco.Controllers.MainController">
                 <fx:include source="receipt/receipt-view.fxml" />
            </Tab>
            <Tab text="Piezas">
-               <fx:include source="part/part-view.fxml" />
+               <fx:include source="part/part-view.fxml"/>
            </Tab>
        </TabPane>
    </center>

@@ -1,19 +1,17 @@
 package com.zervladpy.tallerpaco.Controllers.Customer;
 
 import com.zervladpy.tallerpaco.Core.DAO.CustomerDAO;
-import com.zervladpy.tallerpaco.Core.DAO.IDAO;
-import com.zervladpy.tallerpaco.Core.Entities.Customer.Customer;
 import com.zervladpy.tallerpaco.Core.Entities.Customer.CustomerTableViewDTO;
+import com.zervladpy.tallerpaco.Core.Utils.Factories.DialogFactory;
 import com.zervladpy.tallerpaco.Core.Utils.Managers.DependencyManager;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Window;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static com.zervladpy.tallerpaco.Core.Utils.Factories.DialogFactory.DialogType.CREATE_CUSTOMER;
 
 public class CustomerController {
 
@@ -40,36 +38,43 @@ public class CustomerController {
 
         // --- FirstName Column --- //
         TableColumn<CustomerTableViewDTO, String> firstNameColumn = new TableColumn<>("Nombre");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         // --- LastName Column --- //
         TableColumn<CustomerTableViewDTO, String> lastNameColumn = new TableColumn<>("Apellidos");
-        idColumn.setCellValueFactory( new PropertyValueFactory<>("lastName"));
+        lastNameColumn.setCellValueFactory( new PropertyValueFactory<>("lastName"));
 
         // --- Phone Number --- //
         TableColumn<CustomerTableViewDTO, String> phoneColumn = new TableColumn<>("Teléfono");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
         // --- Email --- //
         TableColumn<CustomerTableViewDTO, String> emailColumn = new TableColumn<>("Email");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
         // --- Total Cars --- //
         TableColumn<CustomerTableViewDTO, Integer> totalCarsColumn = new TableColumn<>("Coches");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("totalCars"));
+        totalCarsColumn.setCellValueFactory(new PropertyValueFactory<>("totalCars"));
 
         // --- Total Cars --- //
         TableColumn<CustomerTableViewDTO, Integer> totalReceiptsColumn = new TableColumn<>("Facturas");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("totalReceipts"));
+        totalReceiptsColumn.setCellValueFactory(new PropertyValueFactory<>("totalReceipts"));
 
         List<TableColumn<CustomerTableViewDTO, ?>> columns = tableView.getColumns();
-        columns.addAll(List.of(idColumn,firstNameColumn, lastNameColumn, phoneColumn, emailColumn));
+        columns.addAll(List.of(idColumn,firstNameColumn, lastNameColumn, phoneColumn, emailColumn, totalReceiptsColumn, totalCarsColumn));
 
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_NEXT_COLUMN);
 
         tableView.getItems().addAll(customers);
     }
 
-    private void filter() {
+    @FXML private void launchCreateDialog() {
+
+        Window root = addButton.getScene().getWindow();
+        CustomerFormController controller = new CustomerFormController();
+        Dialog<ButtonType> dialog = DialogFactory.createDialog(CREATE_CUSTOMER, root, controller);
+
+        dialog.showAndWait();
+
     }
 }

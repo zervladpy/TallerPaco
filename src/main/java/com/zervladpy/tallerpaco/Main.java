@@ -5,7 +5,10 @@ import com.zervladpy.tallerpaco.Core.Entities.Car.Car;
 import com.zervladpy.tallerpaco.Core.Entities.Car.CarBrand;
 import com.zervladpy.tallerpaco.Core.Entities.Car.CarDetails;
 import com.zervladpy.tallerpaco.Core.Entities.Customer.Customer;
+import com.zervladpy.tallerpaco.Core.Entities.Parts.Part;
+import com.zervladpy.tallerpaco.Core.Entities.Reciep.Receipt;
 import com.zervladpy.tallerpaco.Core.Session.SessionManager;
+import com.zervladpy.tallerpaco.Core.Utils.Enums.ServiceType;
 import com.zervladpy.tallerpaco.Core.Utils.Managers.DependencyManager;
 import jakarta.persistence.EntityManagerFactory;
 import javafx.application.Application;
@@ -14,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +32,6 @@ public class Main extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 700, 500);
         stage.setTitle("Hello!");
         stage.setScene(scene);
-        stage.setResizable(false);
         stage.show();
     }
 
@@ -84,7 +87,7 @@ public class Main extends Application {
         Car car5 = new Car(0, new CarDetails("Black", "5555MNO", 1059684), null, nissan);
         Car car6 = new Car(0, new CarDetails("White", "6666PQR", 1059684), null, honda);
 
-        List<Car> carsList = new ArrayList<>(List.of(car1, car2, car3, car4, car5, car6));
+        List<Car> carsList = List.of(car1, car2, car3, car4, car5, car6);
 
         Customer customer1 = new Customer(0, "Ramon", "Gimenez", "12345678A", "Calle Falsa 123", List.of(car1), null);
         Customer customer2 = new Customer(0, "Paco", "Gimenez", "12345678B", "Calle Falsa 124", List.of(car2), null);
@@ -93,15 +96,31 @@ public class Main extends Application {
         Customer customer5 = new Customer(0, "Juan", "Gimenez", "12345678E", "Calle Falsa 127", List.of(car5), null);
         Customer customer6 = new Customer(0, "Pedro", "Gimenez", "12345678F", "Calle Falsa 128", List.of(car6), null);
 
-        List<Customer> customers = new ArrayList<>(List.of(customer1, customer2, customer3, customer4, customer5, customer6));
+        List<Customer> customers = List.of(customer1, customer2, customer3, customer4, customer5, customer6);
+
+        Part p1 = new Part(0, "123456", "Volante", 10.25, 10);
+        Part p2 = new Part(0, "105454", "Rueda", 200, 5);
+        Part p3 = new Part(0, "164897", "Foco Delantero", 50.99, 1);
+        Part p4 = new Part(0, "171798", "Intermitente", 10.25, 0);
+        Part p5 = new Part(0, "564651", "Bombilla", 10.25, 20);
+
+        List<Part> parts = List.of(p1, p2, p3, p4, p5);
+
+        Receipt r1 = new Receipt(0, LocalDate.now(), customer1, ServiceType.MAINTENANCE, null, 100.0);
+        Receipt r2 = new Receipt(0, LocalDate.now(), customer5, ServiceType.REPAIR, List.of(p1, p2), 100.0);
+
+        List<Receipt> receipts = List.of(r1, r2);
 
         // --- Save --- //
 
         dependencies.get(CarBrandDAO.class).saveMany(cars);
         dependencies.get(CarDAO.class).saveMany(carsList);
         dependencies.get(CustomerDAO.class).saveMany(customers);
+        dependencies.get(PartDAO.class).saveMany(parts);
+        dependencies.get(ReceiptDAO.class).saveMany(receipts);
 
     }
+
 
 
 }

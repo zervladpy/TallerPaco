@@ -12,7 +12,7 @@
       fx:controller="com.zervladpy.tallerpaco.Controllers.Customer.CustomerController"
 >
         <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
-            <Button fx:id="addButton" mnemonicParsing="false" text="Añadir"/>
+            <Button fx:id="addButton" mnemonicParsing="false" text="Añadir" onMouseClicked="#launchCreateDialog"/>
             <TextField fx:id="filterTextField" alignment="CENTER_RIGHT" promptText="Buscar"/>
         </ToolBar>
         <TableView fx:id="tableView" />

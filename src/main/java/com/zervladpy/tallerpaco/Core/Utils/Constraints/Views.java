@@ -4,5 +4,5 @@ public  class Views {
     private Views() {
     }
 
-    public static String CREATE_CAR_BRAND = "/com/zervladpy/tallerpaco/carbrand/create-brand.fxml";
+    public static String CREATE_CAR_BRAND = "/com/zervladpy/tallerpaco/carbrand/brand-dialog.fxml";
 }

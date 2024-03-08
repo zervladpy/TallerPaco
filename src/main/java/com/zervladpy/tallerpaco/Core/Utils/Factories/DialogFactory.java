@@ -16,10 +16,10 @@ public class DialogFactory {
     }
 
     public enum DialogType{
-        CREATE_CAR_BRAND("/com/zervladpy/tallerpaco/carbrand/create-brand.fxml"),
-        CREATE_CAR("/com/zervladpy/tallerpaco/car/create-car.fxml"),
-        CREATE_CUSTOMER("/com/zervladpy/tallerpaco/customer/create-customer.fxml"),
-        CREATE_PART("/com/zervladpy/tallerpaco/parts/create-part.fxml"),
+        CREATE_CAR_BRAND("/com/zervladpy/tallerpaco/carbrand/brand-dialog.fxml"),
+        CREATE_CAR("/com/zervladpy/tallerpaco/car/car-dialog.fxml"),
+        CREATE_CUSTOMER("/com/zervladpy/tallerpaco/customer/customer-dialog.fxml"),
+        CREATE_PART("/com/zervladpy/tallerpaco/parts/part-dialog.fxml"),
         CREATE_RECEIPT("/com/zervladpy/tallerpaco/receipt/create-receipt.fxml");
 
         final String path;
@@ -33,8 +33,8 @@ public class DialogFactory {
 
         FXMLLoader loader = new FXMLLoader(Main.class.getResource(type.path));
         loader.setController(controller);
-
         Dialog<R> dialog = new Dialog<>();
+
         try {
             dialog.getDialogPane().setContent(loader.load());
         } catch (IOException e) {
