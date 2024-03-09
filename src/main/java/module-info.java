@@ -5,25 +5,29 @@ module com.zervladpy.tallerpaco {
     requires jakarta.persistence;
     requires java.sql;
     requires lombok;
+    requires java.desktop;
 
     opens com.zervladpy.tallerpaco to javafx.fxml;
     opens com.zervladpy.tallerpaco.Core.Entities.Car to org.hibernate.orm.core, javafx.base;
-    opens com.zervladpy.tallerpaco.Core.Entities.Customer to org.hibernate.orm.core, javafx.base;
+    opens com.zervladpy.tallerpaco.Core.Entities.Client to org.hibernate.orm.core, javafx.base;
     opens com.zervladpy.tallerpaco.Core.Entities.Reciep to org.hibernate.orm.core, javafx.base;
-    opens com.zervladpy.tallerpaco.Core.Entities.Parts to org.hibernate.orm.core, javafx.base;
 
     opens com.zervladpy.tallerpaco.Core.Session to org.hibernate.orm.core;
 
     exports com.zervladpy.tallerpaco;
     exports com.zervladpy.tallerpaco.Controllers;
-    exports com.zervladpy.tallerpaco.Controllers.Car;
-    opens com.zervladpy.tallerpaco.Controllers.Car to javafx.fxml;
-    exports com.zervladpy.tallerpaco.Controllers.CarBrand;
-    opens com.zervladpy.tallerpaco.Controllers.CarBrand to javafx.fxml;
-    exports com.zervladpy.tallerpaco.Controllers.Customer;
-    opens com.zervladpy.tallerpaco.Controllers.Customer to javafx.fxml;
-    exports com.zervladpy.tallerpaco.Controllers.Receipt;
-    opens com.zervladpy.tallerpaco.Controllers.Receipt to javafx.fxml;
-    exports com.zervladpy.tallerpaco.Controllers.Parts;
-    opens com.zervladpy.tallerpaco.Controllers.Parts to javafx.fxml;
+    opens com.zervladpy.tallerpaco.Controllers to javafx.fxml;
+    exports com.zervladpy.tallerpaco.Core.DAO;
+    exports com.zervladpy.tallerpaco.Core.Entities;
+    exports com.zervladpy.tallerpaco.Core.Entities.Car;
+    exports com.zervladpy.tallerpaco.Core.Entities.Client;
+    exports com.zervladpy.tallerpaco.Core.Entities.Reciep;
+    exports com.zervladpy.tallerpaco.Core.Entities.Parts;
+    exports com.zervladpy.tallerpaco.Core.Utils.Factories;
+    exports com.zervladpy.tallerpaco.Core.Utils.Managers;
+    exports com.zervladpy.tallerpaco.Core.Session;
+    opens com.zervladpy.tallerpaco.Core.Entities.Parts to javafx.base, javafx.fxml, org.hibernate.orm.core;
+    exports com.zervladpy.tallerpaco.Core.Entities.Brand;
+    opens com.zervladpy.tallerpaco.Core.Entities.Brand to javafx.base, org.hibernate.orm.core;
+    exports com.zervladpy.tallerpaco.Core.Utils.Enums;
 }

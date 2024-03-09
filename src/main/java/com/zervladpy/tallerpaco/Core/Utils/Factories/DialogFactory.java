@@ -19,8 +19,8 @@ public class DialogFactory {
         CREATE_CAR_BRAND("/com/zervladpy/tallerpaco/carbrand/brand-dialog.fxml"),
         CREATE_CAR("/com/zervladpy/tallerpaco/car/car-dialog.fxml"),
         CREATE_CUSTOMER("/com/zervladpy/tallerpaco/customer/customer-dialog.fxml"),
-        CREATE_PART("/com/zervladpy/tallerpaco/parts/part-dialog.fxml"),
-        CREATE_RECEIPT("/com/zervladpy/tallerpaco/receipt/create-receipt.fxml");
+        CREATE_PART("/com/zervladpy/tallerpaco/part/part-dialog.fxml"),
+        CREATE_RECEIPT("/com/zervladpy/tallerpaco/receipt/receipt-dialog.fxml");
 
         final String path;
 

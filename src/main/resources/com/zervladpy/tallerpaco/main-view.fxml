@@ -1,42 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-fx:controller="com.zervladpy.tallerpaco.Controllers.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zervladpy.tallerpaco.Controllers.MainController">
    <center>
-       <TabPane
-               prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-           <Tab text="Modelos de Coche">
-               <fx:include source="carbrand/brand-view.fxml"/>
+       <TabPane fx:id="tabs" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+           <Tab fx:id="brandTab" text="Modelos de Coche">
+               <fx:include prefWidth="1000.0" source="brand-view.fxml" />
            </Tab>
-           <Tab text="Vehiculos">
-               <fx:include source="car/car-view.fxml" />
+           <Tab fx:id="carTab" text="Vehiculos">
+               <fx:include source="car-view.fxml" />
            </Tab>
-           <Tab text="Clientes">
-                  <fx:include source="customer/customer-view.fxml"/>
+           <Tab fx:id="clientTab" text="Clientes">
+                <fx:include source="client-view.fxml" />
            </Tab>
-           <Tab text="Facturas">
-                <fx:include source="receipt/receipt-view.fxml" />
+           <Tab fx:id="receiptTab" text="Facturas">
+                <fx:include source="receipt-view.fxml" />
            </Tab>
-           <Tab text="Piezas">
-               <fx:include source="part/part-view.fxml"/>
+           <Tab fx:id="partTab" text="Piezas">
+               <fx:include source="part-view.fxml" />
            </Tab>
        </TabPane>
    </center>
-   <top>
-       <MenuBar BorderPane.alignment="CENTER">
-           <Menu mnemonicParsing="false" text="Editar">
-               <MenuItem mnemonicParsing="false" text="Vaciar base de datos"/>
-           </Menu>
-       </MenuBar>
-   </top>
 </BorderPane>

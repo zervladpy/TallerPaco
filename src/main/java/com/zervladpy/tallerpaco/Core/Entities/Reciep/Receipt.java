@@ -1,6 +1,6 @@
 package com.zervladpy.tallerpaco.Core.Entities.Reciep;
 
-import com.zervladpy.tallerpaco.Core.Entities.Customer.Customer;
+import com.zervladpy.tallerpaco.Core.Entities.Client.Client;
 import com.zervladpy.tallerpaco.Core.Entities.Parts.Part;
 import com.zervladpy.tallerpaco.Core.Entities.ITEntity;
 import com.zervladpy.tallerpaco.Core.Utils.Enums.ServiceType;
@@ -22,12 +22,11 @@ public class Receipt implements ITEntity {
     private LocalDate receiptDate;
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    private Customer customer;
+    private Client client;
     @Enumerated(EnumType.STRING)
     @Column(name = "service_type")
     private ServiceType serviceType;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "receipt_id", referencedColumnName = "id")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Part> parts;
     @Column(name = "labor_price")
     private double laborPrice;

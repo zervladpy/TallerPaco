@@ -1,6 +1,7 @@
 package com.zervladpy.tallerpaco.Core.Entities.Car;
 
-import com.zervladpy.tallerpaco.Core.Entities.Customer.Customer;
+import com.zervladpy.tallerpaco.Core.Entities.Brand.Brand;
+import com.zervladpy.tallerpaco.Core.Entities.Client.Client;
 import com.zervladpy.tallerpaco.Core.Entities.ITEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,11 +16,11 @@ public class Car implements ITEntity {
     private int id;
     @Embedded
     private CarDetails details;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "owner_id", referencedColumnName = "id")
-    private Customer customer;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "client", referencedColumnName = "id")
+    private Client client;
     @ManyToOne
-    @JoinColumn(name = "brand_id", referencedColumnName = "id")
-    private CarBrand carBrand;
+    @JoinColumn(name = "brand", referencedColumnName = "id")
+    private Brand brand;
 
 }

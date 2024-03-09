@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.zervladpy.tallerpaco.Controllers.ClientTabController">
+   <center>
+      <TableView fx:id="table" onMouseClicked="#onTableClick" prefHeight="200.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="idCL" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="nameCL" prefWidth="75.0" text="Nombre" />
+            <TableColumn fx:id="surnameCL" prefWidth="75.0" text="Apellidos" />
+            <TableColumn fx:id="emailCL" prefWidth="75.0" text="Email" />
+            <TableColumn fx:id="phoneCL" prefWidth="136.0" text="Número de Teléfono" />
+            <TableColumn fx:id="tCarCL" prefWidth="101.0" text="Total de Coches" />
+            <TableColumn fx:id="tRecipeCL" prefWidth="160.0" text="Total de Facturas" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </center>
+   <bottom>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <buttons>
+          <Button fx:id="emptyBtn" onMouseClicked="#onEmptyButtonClick" mnemonicParsing="false" text="Vaciar Campos" />
+            <Button fx:id="deleteBtn" onMouseClicked="#onDeleteButtonClick" mnemonicParsing="false" text="Eliminar" />
+        </buttons>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+      </ButtonBar>
+   </bottom>
+   <right>
+       <VBox prefHeight="200.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+           <BorderPane.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+           </BorderPane.margin>
+           <Label text="Nombre:"/>
+           <TextField fx:id="nameTF"/>
+           <Label text="Apellidos:"/>
+           <TextField fx:id="surnameTF"/>
+           <Label text="Email:"/>
+           <TextField fx:id="emailTF"/>
+           <Label text="Número de Teléfono:"/>
+           <TextField fx:id="phoneTF"/>
+           <Button fx:id="formBtn" onMouseClicked="#onFormButtonClick" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Guardar">
+              <VBox.margin>
+                  <Insets top="10.0"/>
+              </VBox.margin>
+           </Button>
+       </VBox>
+   </right>
+</BorderPane>

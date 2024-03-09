@@ -10,7 +10,7 @@ import lombok.*;
 public class CarDetails {
     @Column(name = "color")
     private String color;
-    @Column(name = "license_plate")
+    @Column(name = "license_plate", unique = true, nullable = false)
     private String plate;
     @Column(name = "mileage")
     private int mileage;

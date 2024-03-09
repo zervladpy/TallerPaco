@@ -10,84 +10,69 @@ import java.util.List;
 @Getter
 public class DAO<T extends ITEntity> implements IDAO<T> {
 
-    private final EntityManagerFactory emf;
+    private final EntityManager session;
     private final Class<T> entityClass;
 
-    public DAO(EntityManagerFactory emf, Class<T> entityClass) {
-        this.emf = emf;
+    public DAO(EntityManager session, Class<T> entityClass) {
+        this.session = session;
         this.entityClass = entityClass;
     }
 
     @Override
     public T getById(int id) {
-        EntityManager session = emf.createEntityManager();
-        T entity = session.find(entityClass, id);
-        session.close();
-        return entity;
+        return session.find(entityClass, id);
     }
 
     @Override
     public List<T> getAll() {
-        EntityManager session = emf.createEntityManager();
-        List<T> entities = session.createQuery("SELECT e FROM " + entityClass.getName() + " e", entityClass).getResultList();
-        session.close();
-        return entities;
+        return session.createQuery("SELECT e FROM " + entityClass.getName() + " e", entityClass).getResultList();
     }
 
     @Override
     public void save(T entity) {
-        EntityManager session = emf.createEntityManager();
+
         session.getTransaction().begin();
+
         session.merge(entity);
+
         session.getTransaction().commit();
-        session.close();
+
     }
 
     @Override
     public void saveMany(List<T> entities) {
-        EntityManager session = emf.createEntityManager();
         session.getTransaction().begin();
         for (T entity : entities) {
             session.merge(entity);
         }
         session.getTransaction().commit();
-        session.close();
     }
 
     @Override
     public void update(T entity) {
-        EntityManager session = emf.createEntityManager();
         session.getTransaction().begin();
         session.merge(entity);
         session.getTransaction().commit();
-        session.close();
     }
 
     @Override
     public void delete(T entity) {
-        EntityManager session = emf.createEntityManager();
         session.getTransaction().begin();
         session.remove(entity);
         session.getTransaction().commit();
-        session.close();
     }
 
     @Override
     public void deleteById(int id) {
-        EntityManager session = emf.createEntityManager();
-        T entity = session.find(entityClass, id);
         session.getTransaction().begin();
-        session.remove(entity);
+        session.createQuery("DELETE FROM " + entityClass.getName() + " e WHERE e.id = :id").setParameter("id", id).executeUpdate();
         session.getTransaction().commit();
-        session.close();
     }
 
     @Override
     public void deleteAll() {
-        EntityManager session = emf.createEntityManager();
         session.getTransaction().begin();
-        session.createQuery("DELETE FROM " + entityClass.getName()).executeUpdate();
+        session.createQuery("DELETE FROM " + entityClass.getName() + " e").executeUpdate();
         session.getTransaction().commit();
-        session.close();
     }
 }
