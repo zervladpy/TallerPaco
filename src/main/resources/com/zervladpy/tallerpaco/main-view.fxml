@@ -7,21 +7,11 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zervladpy.tallerpaco.Controllers.MainController">
    <center>
        <TabPane fx:id="tabs" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-           <Tab fx:id="brandTab" text="Modelos de Coche">
-               <fx:include prefWidth="1000.0" source="brand-view.fxml" />
-           </Tab>
-           <Tab fx:id="carTab" text="Vehiculos">
-               <fx:include source="car-view.fxml" />
-           </Tab>
-           <Tab fx:id="clientTab" text="Clientes">
-                <fx:include source="client-view.fxml" />
-           </Tab>
-           <Tab fx:id="receiptTab" text="Facturas">
-                <fx:include source="receipt-view.fxml" />
-           </Tab>
-           <Tab fx:id="partTab" text="Piezas">
-               <fx:include source="part-view.fxml" />
-           </Tab>
+           <Tab fx:id="brandTab" text="Modelos de Coche" />
+           <Tab fx:id="carTab" text="Vehiculos" />
+           <Tab fx:id="clientTab" text="Clientes" />
+           <Tab fx:id="receiptTab" text="Facturas" />
+           <Tab fx:id="serviceTab" text="Servicios" />
        </TabPane>
    </center>
 </BorderPane>

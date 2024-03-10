@@ -3,6 +3,7 @@ package com.zervladpy.tallerpaco.Core.DAO;
 import com.zervladpy.tallerpaco.Core.Entities.ITEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.NamedQuery;
 import lombok.Getter;
 
 import java.util.List;
@@ -20,6 +21,11 @@ public class DAO<T extends ITEntity> implements IDAO<T> {
 
     @Override
     public T getById(int id) {
+        return session.find(entityClass, id);
+    }
+
+    @Override
+    public T getById(String id) {
         return session.find(entityClass, id);
     }
 
@@ -65,7 +71,15 @@ public class DAO<T extends ITEntity> implements IDAO<T> {
     @Override
     public void deleteById(int id) {
         session.getTransaction().begin();
-        session.createQuery("DELETE FROM " + entityClass.getName() + " e WHERE e.id = :id").setParameter("id", id).executeUpdate();
+        T entity = session.find(entityClass, id);
+        session.remove(entity);
+        session.getTransaction().commit();
+    }
+
+    public void deleteById(String id) {
+        session.getTransaction().begin();
+        T entity = session.find(entityClass, id);
+        session.remove(entity);
         session.getTransaction().commit();
     }
 

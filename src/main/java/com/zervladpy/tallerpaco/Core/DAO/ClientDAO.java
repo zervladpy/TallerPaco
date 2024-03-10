@@ -22,7 +22,6 @@ public class ClientDAO extends DAO<Client>{
                 "LEFT JOIN c.receipts receipts " +
                 "GROUP BY c.id";
 
-
         return getSession().createQuery(query, cDto).getResultList();
 
     }
@@ -30,7 +29,7 @@ public class ClientDAO extends DAO<Client>{
     public List<ClientNameDTO> getClientNameDTOs() {
 
         String query = "SELECT new " + ClientNameDTO.class.getTypeName() + "(" +
-                "c.id, CONCAT(c.name , '',  c.surname) ) FROM " + getEntityClass().getTypeName() + " c";
+                "c.id, CONCAT(c.name , ' ',  c.surname) ) FROM " + getEntityClass().getTypeName() + " c";
 
         return getSession().createQuery(query, ClientNameDTO.class).getResultList();
     }

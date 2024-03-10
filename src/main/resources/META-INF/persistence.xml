@@ -8,7 +8,6 @@
             Base de datos del taller Paco
         </description>
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <mapping-file>com/zervladpy/tallerpaco/Mappings/aa.xml</mapping-file>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
 
         <properties>
@@ -16,11 +15,11 @@
             <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:./src/main/resources/database/taller;DATABASE_TO_UPPER=FALSE;FILE_LOCK=NO;DB_CLOSE_DELAY=-1" />
             <property name="jakarta.persistence.jdbc.user" value="" />
             <property name="jakarta.persistence.jdbc.password" value="" />
-            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create" /> <!-- none, create, drop-and-create, drop  -->
+            <property name="jakarta.persistence.schema-generation.database.action" value="none" /> <!-- none, create, drop-and-create, drop  -->
 
-            <property name="hibernate.show_sql" value="false" />
-            <property name="hibernate.format_sql" value="false" />
-            <property name="hibernate.highlight_sql" value="false" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.highlight_sql" value="true" />
         </properties>
 
     </persistence-unit>

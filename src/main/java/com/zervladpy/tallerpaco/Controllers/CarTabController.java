@@ -16,8 +16,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -30,7 +32,6 @@ public class CarTabController  {
 
     // --- Table --- //
     @FXML private TableView<CarTableViewDTO> table;
-    @FXML private TableColumn<CarTableViewDTO, Integer> idCL;
     @FXML private TableColumn<CarTableViewDTO, String> plateCL;
     @FXML private TableColumn<CarTableViewDTO, String> mileageCL;
     @FXML private TableColumn<CarTableViewDTO, String> colorCL;
@@ -81,7 +82,6 @@ public class CarTabController  {
     }
 
     private void setupColumns() {
-        idCL.setCellValueFactory(new PropertyValueFactory<>("id"));
         plateCL.setCellValueFactory(new PropertyValueFactory<>("plate"));
         mileageCL.setCellValueFactory(new PropertyValueFactory<>("mileage"));
         colorCL.setCellValueFactory(new PropertyValueFactory<>("color"));
@@ -89,13 +89,15 @@ public class CarTabController  {
         brandCL.setCellValueFactory(cellData -> cellData.getValue().brandNameProperty());
     }
 
-    private void setupForm() {
+    public void setupForm() {
         clientCB.setItems(FXCollections.observableList(clientDAO.getClientNameDTOs()));
         brandCB.setItems(FXCollections.observableList(brandDAO.getBrandNameDTOs()));
 
         clientCB.setOnInputMethodTextChanged(event -> {
             System.out.println("clientCB");
         });
+
+
 
         clientCB.setCellFactory(param -> new ListCell<>() {
             @Override
@@ -107,6 +109,8 @@ public class CarTabController  {
                     setText(item.getFullName());
                 }
             }
+
+
         });
 
         brandCB.setCellFactory(param -> new ListCell<>() {
@@ -126,6 +130,11 @@ public class CarTabController  {
     public void reload() {
         setItems(carDAO.getTableViewDTOs());
         table.refresh();
+    }
+
+    public void reloadForm() {
+        clientCB.setItems(FXCollections.observableList(clientDAO.getClientNameDTOs()));
+        brandCB.setItems(FXCollections.observableList(brandDAO.getBrandNameDTOs()));
     }
 
     // --- Listeners --- //
@@ -151,22 +160,31 @@ public class CarTabController  {
         String plate = plateTF.getText();
         String mileage = mileageTF.getText();
         String color = colorCP.getValue().toString().toUpperCase();
+        System.out.println(clientCB.getValue());
+        System.out.println(brandCB.getValue());
         ClientNameDTO clientDTO = clientCB.getValue();
         BrandNameDTO brandDTO = brandCB.getValue();
 
-        if (plate.isEmpty() || plate.isBlank()) {
-            return;
+        boolean isPlateValid = plate.isEmpty();
+        boolean isMileageValid = false;
+        boolean isNameValid = clientCB.getValue() != null;
+        boolean isBrandValid = brandCB.getValue() != null;
+
+        if (!mileage.isEmpty()) {
+            try {
+                Integer.parseInt(mileage);
+                isMileageValid = true;
+            } catch (NumberFormatException ignored) {
+            }
         }
 
-        if (mileage.isEmpty() || mileage.isBlank()) {
-            return;
-        }
+        if (!isBrandValid || !isMileageValid || !isPlateValid || !isNameValid) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("El formualrio no esta correcto");
 
-        if (clientDTO.getFullName().isEmpty() || clientDTO.getFullName().isBlank()) {
-            return;
-        }
+            alert.setContentText("Porfavor revise que los campos estan rellenados.");
+            alert.showAndWait();
 
-        if (brandDTO.getName().isEmpty() || brandDTO.getName().isBlank()) {
             return;
         }
 
@@ -174,25 +192,28 @@ public class CarTabController  {
             color = Color.WHITE.toString().toUpperCase();
         }
 
+        System.out.println("DSADA");
+
         Car car = new Car();
         car.setDetails(new CarDetails());
-        car.getDetails().setPlate(plate);
-        car.getDetails().setMileage(Integer.parseInt(mileage));
+        car.setPlate(plate);
+        car.setMileage(Integer.parseInt(mileage));
         car.getDetails().setColor(color);
         Client client = clientDAO.getById(clientDTO.getId());
         car.setClient(client);
         Brand brand = brandDAO.getById(brandDTO.getId());
+        car.getDetails().setBrand(brand);
         if (selected != null) {
             carDAO.update(car);
         } else {
-            car.setBrand(brand);
+            carDAO.save(car);
         }
-        onEmptyButtonClick(null);
+        onEmptyButtonClick();
         reload();
 
     }
 
-    @FXML private void onEmptyButtonClick(MouseEvent event) {
+    @FXML private void onEmptyButtonClick() {
         selected = null;
         plateTF.setText("");
         mileageTF.setText("");
@@ -201,9 +222,11 @@ public class CarTabController  {
         brandCB.setValue(emptyBrandNameDTO);
     }
 
-    @FXML private void onDeleteButtonClick(MouseEvent event) {
+    @FXML private void onDeleteButtonClick() {
         if (selected != null) {
-            clientDAO.deleteById(selected.getId());
+            Car car = carDAO.getById(selected.getPlate());
+            System.out.println(car);
+            carDAO.delete(car);
             reload();
         }
     }

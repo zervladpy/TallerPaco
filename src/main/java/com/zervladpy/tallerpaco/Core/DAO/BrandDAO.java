@@ -3,6 +3,7 @@ package com.zervladpy.tallerpaco.Core.DAO;
 import com.zervladpy.tallerpaco.Core.Entities.Brand.Brand;
 import com.zervladpy.tallerpaco.Core.Entities.Brand.BrandNameDTO;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NamedQuery;
 
 import java.util.List;
 

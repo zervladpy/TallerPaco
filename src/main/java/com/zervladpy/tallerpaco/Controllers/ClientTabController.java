@@ -16,18 +16,16 @@ import java.util.List;
 
 public class ClientTabController {
 
-    private ObservableList<ClientTableViewDTO> items;
-    private ClientTableViewDTO selected;
+    private ObservableList<Client> items;
+    private Client selected;
 
     // --- Table --- //
-    @FXML private TableView<ClientTableViewDTO> table;
-    @FXML private TableColumn<ClientTableViewDTO, Integer> idCL;
-    @FXML private TableColumn<ClientTableViewDTO, String> nameCL;
-    @FXML private TableColumn<ClientTableViewDTO, String> surnameCL;
-    @FXML private TableColumn<ClientTableViewDTO, String> emailCL;
-    @FXML private TableColumn<ClientTableViewDTO, String> phoneCL;
-    @FXML private TableColumn<ClientTableViewDTO, Integer> tCarCL;
-    @FXML private TableColumn<ClientTableViewDTO, Integer> tRecipeCL;
+    @FXML private TableView<Client> table;
+    @FXML private TableColumn<Client, Integer> idCL;
+    @FXML private TableColumn<Client, String> nameCL;
+    @FXML private TableColumn<Client, String> surnameCL;
+    @FXML private TableColumn<Client, String> emailCL;
+    @FXML private TableColumn<Client, String> phoneCL;
 
     // --- Form --- //
     @FXML private TextField nameTF, surnameTF, emailTF, phoneTF;
@@ -46,12 +44,12 @@ public class ClientTabController {
     }
 
     // --- Setters --- //
-    public void setItems(ObservableList<ClientTableViewDTO> items) {
+    public void setItems(ObservableList<Client> items) {
         this.items = items;
         table.setItems(this.items);
     }
 
-    public void setItems(List<ClientTableViewDTO> items) {
+    public void setItems(List<Client> items) {
         this.items = FXCollections.observableList(items);
         table.setItems(this.items);
     }
@@ -59,7 +57,7 @@ public class ClientTabController {
     // --- Initialization --- //
     public void initialize() {
         setupColumns();
-        setItems(clientDAO.getTableViewDTOs());
+        setItems(clientDAO.getAll());
     }
 
     private void setupColumns() {
@@ -68,13 +66,11 @@ public class ClientTabController {
         surnameCL.setCellValueFactory(new PropertyValueFactory<>("surname"));
         emailCL.setCellValueFactory(new PropertyValueFactory<>("email"));
         phoneCL.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        tCarCL.setCellValueFactory(new PropertyValueFactory<>("totalCars"));
-        tRecipeCL.setCellValueFactory(new PropertyValueFactory<>("totalReceipts"));
     }
 
     // --- Reload --- //
     public void reload() {
-        setItems(clientDAO.getTableViewDTOs());
+        setItems(clientDAO.getAll());
         table.refresh();
     }
 
@@ -89,37 +85,35 @@ public class ClientTabController {
 
     }
 
-    @FXML private void onFormButtonClick(MouseEvent event) {
+    @FXML private void onFormButtonClick() {
 
         String name = nameTF.getText();
         String surname = surnameTF.getText();
         String phone = phoneTF.getText();
         String email = emailTF.getText();
 
-        if (name.isEmpty() || name.isBlank()) {
-            return;
-        }
+        boolean isNameValid = !name.isEmpty();
+        boolean isSurnameValid = !surname.isEmpty();
+        boolean isPhoneValid = !phone.isEmpty();
+        boolean isEmailValid = !email.isEmpty();
 
-        if (surname.isEmpty() || surname.isBlank()) {
-            return;
-        }
+        if (!isNameValid || !isSurnameValid || !isPhoneValid || !isEmailValid) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("El formualrio no esta correcto");
 
-        if (phone.isEmpty() || phone.isBlank()) {
-            return;
-        }
+            alert.setContentText("Porfavor revise que los campos estan rellenados.");
+            alert.showAndWait();
 
-        if (email.isEmpty() || email.isBlank()) {
             return;
         }
 
         if (selected != null) {
-            Client client = new Client();
-            client.setId(selected.getId());
-            client.setName(name);
-            client.setSurname(surname);
-            client.setPhone(phone);
-            client.setEmail(email);
-            clientDAO.update(client);
+            selected.setId(selected.getId());
+            selected.setName(name);
+            selected.setSurname(surname);
+            selected.setPhone(phone);
+            selected.setEmail(email);
+            clientDAO.update(selected);
 
         } else {
             Client newClient = new Client();

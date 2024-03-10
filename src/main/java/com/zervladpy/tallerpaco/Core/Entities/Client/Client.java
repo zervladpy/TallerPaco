@@ -1,12 +1,8 @@
 package com.zervladpy.tallerpaco.Core.Entities.Client;
 
-import com.zervladpy.tallerpaco.Core.Entities.Car.Car;
-import com.zervladpy.tallerpaco.Core.Entities.Reciep.Receipt;
 import com.zervladpy.tallerpaco.Core.Entities.ITEntity;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter @ToString
@@ -23,8 +19,4 @@ public class Client implements ITEntity {
     private String email;
     @Column(name = "phone", nullable = false)
     private String phone;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Car> cars;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Receipt> receipts;
 }

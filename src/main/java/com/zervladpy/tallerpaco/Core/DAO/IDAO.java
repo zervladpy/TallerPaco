@@ -10,6 +10,7 @@ import java.util.List;
 public interface IDAO<T extends ITEntity> {
 
     T getById(int id);
+    T getById(String id);
     List<T> getAll();
     void save(T entity);
     void saveMany(List<T> entities);

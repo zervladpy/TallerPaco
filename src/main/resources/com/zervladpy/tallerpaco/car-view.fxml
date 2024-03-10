@@ -12,21 +12,15 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane
-        fx:controller="com.zervladpy.tallerpaco.Controllers.CarTabController"
-        maxHeight="-Infinity" maxWidth="-Infinity"
-        minHeight="-Infinity" minWidth="-Infinity"
-        prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zervladpy.tallerpaco.Controllers.CarTabController">
    <center>
       <TableView fx:id="table" onMouseClicked="#onTableClick" prefHeight="200.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="idCL" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="plateCL" prefWidth="75.0" text="Matrícula" />
             <TableColumn fx:id="mileageCL" prefWidth="75.0" text="Kilometraje" />
-            <TableColumn fx:id="colorCL" prefWidth="75.0" text="Color" />
             <TableColumn fx:id="brandCL" prefWidth="75.0" text="Marca" />
             <TableColumn fx:id="clientCL" prefWidth="75.0" text="Cliente" />
+            <TableColumn fx:id="colorCL" prefWidth="75.0" text="Color" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -36,21 +30,21 @@
    <right>
        <VBox prefHeight="200.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="TOP_LEFT">
            <BorderPane.margin>
-               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
            </BorderPane.margin>
-           <Label text="Matrícula:"/>
-           <TextField fx:id="plateTF"/>
-           <Label text="Kilometraje:"/>
-           <TextField fx:id="mileageTF"/>
-           <Label text="Color:"/>
-           <ColorPicker fx:id="colorCP" prefWidth="200.0"/>
-           <Label text="Marca:"/>
-           <ComboBox fx:id="brandCB" editable="true" prefWidth="200.0"/>
-           <Label text="Cliente:"/>
-           <ComboBox fx:id="clientCB" editable="true" prefWidth="200.0"/>
-           <Button fx:id="formBtn" maxWidth="200.0" mnemonicParsing="false" prefHeight="30.0" text="Guardar">
+           <Label text="Matrícula:" />
+           <TextField fx:id="plateTF" />
+           <Label text="Kilometraje:" />
+           <TextField fx:id="mileageTF" />
+           <Label text="Marca:" />
+           <ComboBox fx:id="brandCB" prefWidth="200.0" />
+           <Label text="Cliente:" />
+           <ComboBox fx:id="clientCB" prefWidth="200.0" />
+           <Label text="Color:" />
+           <ColorPicker fx:id="colorCP" prefWidth="200.0" />
+           <Button fx:id="formBtn" onMouseClicked="#onFormButtonClick" maxWidth="200.0" mnemonicParsing="false" prefHeight="30.0" text="Guardar">
               <VBox.margin>
-                  <Insets top="10.0"/>
+                  <Insets top="10.0" />
               </VBox.margin>
            </Button>
        </VBox>
@@ -58,8 +52,8 @@
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
-          <Button fx:id="emptyBtn" onMouseClicked="#onEmptyButtonClick" mnemonicParsing="false" text="Vaciar Campos" />
-          <Button fx:id="deleteBtn" onMouseClicked="#onDeleteButtonClick" mnemonicParsing="false" text="Eliminar" />
+          <Button fx:id="emptyBtn" mnemonicParsing="false" onMouseClicked="#onEmptyButtonClick" text="Vaciar Campos" />
+          <Button fx:id="deleteBtn" mnemonicParsing="false" onMouseClicked="#onDeleteButtonClick" text="Eliminar" />
         </buttons>
          <opaqueInsets>
             <Insets />

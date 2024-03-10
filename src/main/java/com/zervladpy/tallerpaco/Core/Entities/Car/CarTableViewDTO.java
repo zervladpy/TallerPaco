@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @ToString
 public class CarTableViewDTO {
-    private int id;
     private String plate;
     private String color;
     private int mileage;

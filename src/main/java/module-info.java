@@ -10,7 +10,7 @@ module com.zervladpy.tallerpaco {
     opens com.zervladpy.tallerpaco to javafx.fxml;
     opens com.zervladpy.tallerpaco.Core.Entities.Car to org.hibernate.orm.core, javafx.base;
     opens com.zervladpy.tallerpaco.Core.Entities.Client to org.hibernate.orm.core, javafx.base;
-    opens com.zervladpy.tallerpaco.Core.Entities.Reciep to org.hibernate.orm.core, javafx.base;
+    opens com.zervladpy.tallerpaco.Core.Entities.Invoice to org.hibernate.orm.core, javafx.base;
 
     opens com.zervladpy.tallerpaco.Core.Session to org.hibernate.orm.core;
 
@@ -21,13 +21,11 @@ module com.zervladpy.tallerpaco {
     exports com.zervladpy.tallerpaco.Core.Entities;
     exports com.zervladpy.tallerpaco.Core.Entities.Car;
     exports com.zervladpy.tallerpaco.Core.Entities.Client;
-    exports com.zervladpy.tallerpaco.Core.Entities.Reciep;
-    exports com.zervladpy.tallerpaco.Core.Entities.Parts;
-    exports com.zervladpy.tallerpaco.Core.Utils.Factories;
+    exports com.zervladpy.tallerpaco.Core.Entities.Invoice;
+    exports com.zervladpy.tallerpaco.Core.Entities.Service;
     exports com.zervladpy.tallerpaco.Core.Utils.Managers;
     exports com.zervladpy.tallerpaco.Core.Session;
-    opens com.zervladpy.tallerpaco.Core.Entities.Parts to javafx.base, javafx.fxml, org.hibernate.orm.core;
+    opens com.zervladpy.tallerpaco.Core.Entities.Service to javafx.base, javafx.fxml, org.hibernate.orm.core;
     exports com.zervladpy.tallerpaco.Core.Entities.Brand;
     opens com.zervladpy.tallerpaco.Core.Entities.Brand to javafx.base, org.hibernate.orm.core;
-    exports com.zervladpy.tallerpaco.Core.Utils.Enums;
 }

@@ -1,17 +1,16 @@
 package com.zervladpy.tallerpaco.Core.Entities.Car;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import com.zervladpy.tallerpaco.Core.Entities.Brand.Brand;
+import jakarta.persistence.*;
 import lombok.*;
 
 @NoArgsConstructor @AllArgsConstructor
-@Getter @Setter @ToString
+@Getter @Setter
 @Embeddable
 public class CarDetails {
     @Column(name = "color")
     private String color;
-    @Column(name = "license_plate", unique = true, nullable = false)
-    private String plate;
-    @Column(name = "mileage")
-    private int mileage;
+    @JoinColumn(name = "idBrand")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.DETACH)
+    private Brand brand;
 }

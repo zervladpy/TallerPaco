@@ -17,6 +17,6 @@ public class Brand implements ITEntity {
     private String name;
     @Column(name = "country", nullable = false)
     private String country;
-    @Column(name = "foundation_year", nullable = false)
-    private int foundationYear;
+    @Lob @Column(name = "logo")
+    private byte[] logo;
 }

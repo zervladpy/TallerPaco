@@ -8,8 +8,17 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 
+import javax.imageio.ImageIO;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,15 +31,16 @@ public class BrandTabController {
     @FXML private TableColumn<Brand, Integer> idCL;
     @FXML private TableColumn<Brand, String> nameCL;
     @FXML private TableColumn<Brand, String> originCL;
-    @FXML private TableColumn<Brand, Integer> yearCL;
 
     // --- Form --- //
-    @FXML private TextField nameTF, originTF, yearTF;
+    @FXML private TextField nameTF, originTF, yearTF, pathTF;
     @FXML private Button formButton;
+
+    @FXML private ImageView logoPreview;
 
     // --- Bottom Bar --- //
     @FXML private ButtonBar buttonBar;
-    @FXML private Button emptyBtn, deleteBtn;
+    @FXML private Button emptyBtn, deleteBtn, openFileChooserBtn;
 
     // --- DAOs --- //
     private final BrandDAO brandDAO;
@@ -62,7 +72,6 @@ public class BrandTabController {
         idCL.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameCL.setCellValueFactory(new PropertyValueFactory<>("name"));
         originCL.setCellValueFactory(new PropertyValueFactory<>("country"));
-        yearCL.setCellValueFactory(new PropertyValueFactory<>("foundationYear"));
     }
 
     // --- Reload --- //
@@ -72,66 +81,92 @@ public class BrandTabController {
     }
 
     // --- Listeners --- //
-    @FXML private void onTableClick(MouseEvent event) {
+    @FXML private void onTableClick() throws IOException {
         selected = table.getSelectionModel().getSelectedItem();
         boolean isNotNull = selected != null;
         nameTF.setText(isNotNull ? selected.getName() : "");
         originTF.setText(isNotNull ? selected.getCountry() : "");
-        yearTF.setText(isNotNull ? String.valueOf(selected.getFoundationYear()) : "");
+
+        if (selected.getLogo() != null && (selected.getLogo().length != 0)) {
+            ByteArrayInputStream stream = new ByteArrayInputStream(selected.getLogo());
+            logoPreview.setImage(new Image(stream));
+        } else {
+            logoPreview.setImage(null);
+        }
     }
 
-    @FXML private void onFormButtonClick(MouseEvent event) {
+    @FXML private void onOpenFileChooserButtonClick() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
+        fileChooser.setTitle("Abrir archivo");
+        Window root = table.getScene().getWindow();
+        var file = fileChooser.showOpenDialog(root);
+
+        if (file != null) {
+            pathTF.setText(file.getAbsolutePath());
+            logoPreview.setImage(new Image(file.toURI().toString()));
+        }
+    }
+
+    @FXML private void onFormButtonClick() {
 
         String name = nameTF.getText();
         String origin = originTF.getText();
-        String year = yearTF.getText();
 
-        if (name.isEmpty() || name.isBlank()) {
+        boolean isValidName = !name.isEmpty();
+        boolean isValidOrigin = !origin.isEmpty();
+
+        if (!isValidOrigin && !isValidName) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Formulario no rellenado correctamente");
+            alert.setContentText("Porfavor revise que los campos esten llenos");
+
+            alert.showAndWait();
             return;
         }
 
-        if (origin.isEmpty() || origin.isBlank()) {
-            return;
-        }
 
-        if (year.isEmpty() || year.isBlank()) {
-            return;
-        } else {
+        if (selected == null) {
+            Brand brand = new Brand();
+            brand.setName(name);
+            brand.setCountry(origin);
             try {
-                Integer.parseInt(year);
-            } catch (Exception ignore) {
-                return;
+                File file = new File(pathTF.getText());
+                byte[] stream = Files.readAllBytes(file.toPath());
+                brand.setLogo(stream);
+                pathTF.setText("");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }
-
-        if (selected != null) {
-            selected.setName(name);
-            selected.setCountry(origin);
-            selected.setFoundationYear(Integer.parseInt(year));
-
-            brandDAO.update(selected);
+            brandDAO.save(brand);
 
         } else {
-            Brand newBrand = new Brand();
-            newBrand.setName(name);
-            newBrand.setCountry(origin);
-            newBrand.setFoundationYear(Integer.parseInt(year));
-
-            brandDAO.save(newBrand);
+            selected.setName(nameTF.getText());
+            selected.setCountry(originTF.getText());
+            try {
+                File file = new File(pathTF.getText());
+                byte[] stream = Files.readAllBytes(file.toPath());
+                selected.setLogo(stream);
+                pathTF.setText("");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            brandDAO.update(selected);
         }
-
         reload();
 
     }
 
-    @FXML private void onEmptyButtonClick(MouseEvent event) {
+    @FXML private void onEmptyButtonClick() {
         selected = null;
         nameTF.setText("");
-        yearTF.setText("");
         originTF.setText("");
+        pathTF.setText("");
+        logoPreview.setImage(null);
     }
 
-    @FXML private void onDeleteButtonClick(MouseEvent event) {
+    @FXML private void onDeleteButtonClick() {
         if (selected != null) {
             brandDAO.delete(selected);
             reload();

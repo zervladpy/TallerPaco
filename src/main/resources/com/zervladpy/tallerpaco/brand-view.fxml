@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -14,18 +15,17 @@
 <BorderPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zervladpy.tallerpaco.Controllers.BrandTabController">
    <center>
       <HBox>
-          <TableView fx:id="table" onMouseClicked="#onTableClick" prefWidth="800.0">
+          <TableView fx:id="table" onMouseClicked="#onTableClick" prefHeight="460.0" prefWidth="754.0">
             <columns>
                 <TableColumn fx:id="idCL" prefWidth="59.0" text="ID" />
                 <TableColumn fx:id="nameCL" prefWidth="266.0" text="Nombre" />
                 <TableColumn fx:id="originCL" minWidth="100.0" prefWidth="275.0" text="País de Orígen" />
-                <TableColumn fx:id="yearCL" prefWidth="174.0" text="Año Creación" />
             </columns>
             <columnResizePolicy>
                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
           </TableView>
-          <VBox maxWidth="200.0" minWidth="200.0" prefWidth="200.0" spacing="10.0">
+          <VBox maxWidth="403.0" minWidth="200.0" prefHeight="440.0" prefWidth="403.0" spacing="10.0">
               <Label text="Name:" />
               <TextField fx:id="nameTF">
                   <VBox.margin>
@@ -38,16 +38,20 @@
                       <Insets />
                   </VBox.margin>
               </TextField>
-              <Label text="Año Fabricacion:" />
-              <TextField fx:id="yearTF">
-                  <VBox.margin>
-                      <Insets />
-                  </VBox.margin>
-              </TextField>
-              <Button fx:id="formButton" mnemonicParsing="false" onMouseClicked="#onFormButtonClick" prefHeight="30.0" prefWidth="200.0" text="Guardar">
+            <Label text="Label" />
+              <HBox prefHeight="25.0" prefWidth="219.0" spacing="10.0">
+                  <TextField fx:id="pathTF" prefHeight="25.0" prefWidth="220.0"/>
+                  <Button fx:id="openFileChooserBtn" onMouseClicked="#onOpenFileChooserButtonClick"  mnemonicParsing="false" text="Abrir Archivo"/>
+              </HBox>
+              <Button fx:id="formButton" mnemonicParsing="false" onMouseClicked="#onFormButtonClick" prefHeight="30.0" prefWidth="316.0" text="Guardar">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></Button>
+            <HBox alignment="CENTER">
+               <children>
+                  <ImageView fx:id="logoPreview" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
             <HBox.margin>
                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </HBox.margin>
