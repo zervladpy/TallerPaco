@@ -46,6 +46,36 @@ Pequeño proyecto hecho con java.
     
 ```
 
+## Dependecy Manager
+
+```
+ - Incluye un pequeño Dependency Manager:
+ 
+ En base a un HashMap<Class<T>, IDAO<T>> se puede obtener los DAO registrados previamente.
+ De esta manera se evita la continua inyección en constructores.
+ 
+ Ejemplo de uso que se puede encontrar en los controladores y en el Main.java:
+```
+
+````java
+import com.zervladpy.tallerpaco.Core.DAO.ClientDAO;
+import com.zervladpy.tallerpaco.Core.Entities.Client.Client;
+import com.zervladpy.tallerpaco.Core.Utils.Managers.DependencyManager;
+import jakarta.persistence.EntityManager;
+import com.zervladpy.tallerpaco.Core.Utils.Managers.ServiceManager;
+
+DependencyManager dp = DependencyManager.getInstance();
+/* Registro de Instancia*/
+dp.add(EntityManager.class, ServiceManager.getInstance());
+/* Obtencion de Instancia*/
+dp.get(EntityManager.class);
+
+/* NOTA: No se pueden registrar dos instancias iguales
+ *       - Si se proced se lanzará un RuntimeException
+ *       - En el caso de que no exista la instancia se lanzará un RuntimeException
+ *  */
+````
+
 ## Aplicación
 
 ```
